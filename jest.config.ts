@@ -179,6 +179,8 @@ const config: Config = {
     "^.+\\.(t|j)sx?$": "@swc/jest",
   },
 
+  setupFilesAfterEnv: ["./shared/infra/testing/expect-helpers.ts"],
+
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
   //   "/node_modules/",
