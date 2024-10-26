@@ -72,7 +72,13 @@ export class CategorySequelizeRepository
       throw new NotFoundError(id, this.getEntity());
     }
 
-    await this.categoryModel.destroy({ where: { category_id: id } });
+    const deleteCount = await this.categoryModel.destroy({
+      where: { category_id: id },
+    });
+
+    if (deleteCount === 0) {
+      throw new NotFoundError(id, this.getEntity());
+    }
   }
 
   async search(props: CategorySearchParams): Promise<CategorySearchResult> {

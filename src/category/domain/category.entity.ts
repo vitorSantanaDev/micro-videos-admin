@@ -82,9 +82,9 @@ export class Category extends Entity {
     return {
       name: this.name,
       is_active: this.is_active,
+      created_at: this.created_at,
       description: this.description,
-      category_id: this.category_id.id,
-      created_at: this.created_at.toISOString(),
+      category_id: this.category_id,
     };
   }
 }

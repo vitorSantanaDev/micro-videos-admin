@@ -131,7 +131,7 @@ describe("CategorySequelizeRepository", () => {
           name: "Movie",
           description: null,
           is_active: true,
-          created_at: created_at.toISOString(),
+          created_at: created_at,
         })
       );
     });
