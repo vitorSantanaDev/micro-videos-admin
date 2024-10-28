@@ -3,7 +3,7 @@ import { Category } from "../../../../domain/category.entity";
 import { CategoryModel } from "../../../../infra/database/sequelize/category.model";
 import { CategorySequelizeRepository } from "../../../../infra/database/sequelize/category.sequelize.repository";
 import { CategoryOutputMapper } from "../../common/category-output";
-import { ListCategoriesUseCase } from "../../list-categories.use-case";
+import { ListCategoriesUseCase } from "../list-categories.use-case";
 
 describe("ListCategoriesUseCase Integration Tests", () => {
   let useCase: ListCategoriesUseCase;

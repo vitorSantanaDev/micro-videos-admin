@@ -1,5 +1,5 @@
 import { CategoryInMemoryRepository } from "../../../../infra/database/in-memory/category-in-memory.repository";
-import { CreateCategoryUseCase } from "../../create-category.use-case";
+import { CreateCategoryUseCase } from "../create-category.use-case";
 
 describe("CreateCategoryUseCase Unit Tests", () => {
   let useCase: CreateCategoryUseCase;
@@ -12,19 +12,15 @@ describe("CreateCategoryUseCase Unit Tests", () => {
 
   it("should throw an error when aggregate is not valid", async () => {
     const input = { name: "t".repeat(256) };
-
     await expect(() => useCase.execute(input)).rejects.toThrow(
-      "Validation Error"
+      "Entity Validation Error"
     );
   });
 
   it("should create a category", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
-
     let output = await useCase.execute({ name: "test" });
-
     expect(spyInsert).toHaveBeenCalledTimes(1);
-
     expect(output).toStrictEqual({
       id: repository.items[0].category_id.id,
       name: "test",
@@ -38,9 +34,7 @@ describe("CreateCategoryUseCase Unit Tests", () => {
       description: "some description",
       is_active: false,
     });
-
     expect(spyInsert).toHaveBeenCalledTimes(2);
-
     expect(output).toStrictEqual({
       id: repository.items[1].category_id.id,
       name: "test",

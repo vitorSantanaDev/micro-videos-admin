@@ -4,8 +4,8 @@ import {
   Uuid,
 } from "../../../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../../../../domain/category.entity";
-import { GetCategoryUseCase } from "../../get-category.use-case";
 import { CategoryInMemoryRepository } from "../../../../infra/database/in-memory/category-in-memory.repository";
+import { GetCategoryUseCase } from "../get-category.use-case";
 
 describe("GetCategoryUseCase Unit Tests", () => {
   let useCase: GetCategoryUseCase;
