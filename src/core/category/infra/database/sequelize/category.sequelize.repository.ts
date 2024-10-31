@@ -9,6 +9,8 @@ import {
 } from "../../../domain/category.repository";
 import { Op } from "sequelize";
 import { CategoryModelMapper } from "./category-model-mapper";
+import { Injectable } from "@nestjs/common";
+
 
 export class CategorySequelizeRepository
   implements ISearchableRespository<Category, Uuid>
