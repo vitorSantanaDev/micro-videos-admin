@@ -7,7 +7,9 @@ import {
   Delete,
   Inject,
   Controller,
-  ParseUUIDPipe
+  ParseUUIDPipe,
+  HttpCode,
+  Query
 } from '@nestjs/common'
 import { UpdateCategoryDto } from './dto/update-category.dto'
 import { CreateCategoryUseCase } from '@core/category/application/use-cases/create-category/create-category.use-case'
@@ -16,8 +18,12 @@ import { DeleteCategoryUseCase } from '@core/category/application/use-cases/dele
 import { GetCategoryUseCase } from '@core/category/application/use-cases/get-category/get-category.use-case'
 import { ListCategoriesUseCase } from '@core/category/application/use-cases/list-category/list-categories.use-case'
 import { CreateCategoryDto } from './dto/create-category.dto'
-import { CategoryPresenter } from './categories.presenter'
+import {
+  CategoryCollectionPresenter,
+  CategoryPresenter
+} from './categories.presenter'
 import { CategoryOutput } from '@core/category/application/use-cases/common/category-output'
+import { SearchCategoriesDto } from './dto/search-categories.dto'
 
 @Controller('categories')
 export class CategoriesController {
@@ -54,14 +60,27 @@ export class CategoriesController {
     return CategoriesController.serialize(output)
   }
 
-  @Get()
-  findAll() {}
+  @HttpCode(204)
+  @Delete(':id')
+  remove(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string
+  ) {
+    return this.deleteCategoryUseCase.execute({ id })
+  }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {}
+  async findOne(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string
+  ) {
+    const output = await this.getCategoryUseCase.execute({ id })
+    return CategoriesController.serialize(output)
+  }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {}
+  @Get()
+  async search(@Query() searchParamsDto: SearchCategoriesDto) {
+    const output = await this.listCategoryUseCase.execute(searchParamsDto)
+    return new CategoryCollectionPresenter(output)
+  }
 
   static serialize(output: CategoryOutput) {
     return new CategoryPresenter(output)
