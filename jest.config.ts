@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from "jest";
+import type { Config } from 'jest'
 
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
@@ -193,25 +193,18 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-	rootDir: "src",
-  moduleFileExtensions: [
-      "js",
-      "json",
-      "ts"
-    ],
-    testRegex: ".*\\.spec\\.ts$",
-    collectCoverageFrom: [
-      "**/*.(t|j)s"
-    ],
-    coverageDirectory: "../coverage",
-    testEnvironment: "node",
-		transform: {
-			"^.+\\.(t|j)sx?$": "@swc/jest",
-		},
-		setupFilesAfterEnv: ["./core/shared/infra/testing/expect-helpers.ts"],
-	  coverageProvider: "v8",
-		clearMocks: true,
+  rootDir: 'src',
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  testRegex: '.*\\..*spec\\.ts$',
+  collectCoverageFrom: ['**/*.(t|j)s'],
+  coverageDirectory: '../coverage',
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.(t|j)sx?$': '@swc/jest'
+  },
+  setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
+  coverageProvider: 'v8',
+  clearMocks: true
+}
 
-};
-
-export default config;
+export default config

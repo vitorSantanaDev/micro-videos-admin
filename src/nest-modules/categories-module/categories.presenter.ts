@@ -9,12 +9,14 @@ export class CategoryPresenter {
   description: string | null
   @Transform(({ value }: { value: Date }) => value.toISOString())
   created_at: Date
+  is_active?: boolean
 
   constructor(output: CategoryOutput) {
     this.id = output.id
     this.name = output.name
     this.description = output.description
     this.created_at = output.created_at
+    this.is_active = output.is_active
   }
 }
 

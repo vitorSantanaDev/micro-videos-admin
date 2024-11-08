@@ -45,6 +45,7 @@ export class CategoriesController {
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     const output = await this.createCategoryUseCase.execute(createCategoryDto)
+
     return CategoriesController.serialize(output)
   }
 
@@ -57,6 +58,7 @@ export class CategoriesController {
       ...updateCategoryDto,
       id
     })
+
     return CategoriesController.serialize(output)
   }
 
@@ -73,12 +75,14 @@ export class CategoriesController {
     @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string
   ) {
     const output = await this.getCategoryUseCase.execute({ id })
+
     return CategoriesController.serialize(output)
   }
 
   @Get()
   async search(@Query() searchParamsDto: SearchCategoriesDto) {
     const output = await this.listCategoryUseCase.execute(searchParamsDto)
+
     return new CategoryCollectionPresenter(output)
   }
 
