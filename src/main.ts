@@ -2,8 +2,9 @@ import { NestFactory, Reflector } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { WrapperDataInterceptor } from './nest-modules/shared-module/interceptors/wrapper-data/wrapper-data.interceptor'
-import { NotFoundErrorFilter } from './not-found/not-found-error.filter'
-import { EntityValidationErrorFilter } from './not-found/entity-validation-error.filter'
+import { NotFoundErrorFilter } from './filters/not-found-error.filter'
+import { EntityValidationErrorFilter } from './filters/entity-validation-error.filter'
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
