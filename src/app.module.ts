@@ -7,9 +7,9 @@ import { SharedModule } from './nest-modules/shared-module/shared.module'
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    SharedModule,
     DatabaseModule,
     CategoriesModule,
-    SharedModule
   ],
   controllers: [],
   providers: []

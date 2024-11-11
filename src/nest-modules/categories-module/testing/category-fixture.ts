@@ -221,7 +221,11 @@ export class UpdateCategoryFixture {
           description: 5
         },
         expected: {
-          message: ['description must be a string'],
+          message: [
+            'name should not be empty',
+            'name must be a string',
+            'description must be a string'
+          ],
           ...defaultExpected
         }
       },
@@ -230,7 +234,11 @@ export class UpdateCategoryFixture {
           is_active: 'a'
         },
         expected: {
-          message: ['is_active must be a boolean value'],
+          message: [
+            'name should not be empty',
+            'name must be a string',
+            'is_active must be a boolean value'
+          ],
           ...defaultExpected
         }
       }
