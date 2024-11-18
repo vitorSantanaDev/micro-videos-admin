@@ -198,6 +198,25 @@ const config: Config = {
   testRegex: '.*\\..*spec\\.ts$',
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.interface.ts',
+    'shared/testing',
+    'shared-module/testing',
+    'validator-rules.ts',
+    '-fixture.ts',
+    '.input.ts',
+    '.dto.ts',
+    '.d.ts'
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80
+    }
+  },
   testEnvironment: 'node',
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest'
