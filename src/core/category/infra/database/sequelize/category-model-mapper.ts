@@ -1,7 +1,7 @@
-import { EntityValidationError } from "../../../../shared/domain/validators/validation.error";
-import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../../domain/category.entity";
-import { CategoryModel } from "./category.model";
+import { EntityValidationError } from '../../../../shared/domain/validators/validation.error'
+import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo'
+import { Category } from '../../../domain/category.entity'
+import { CategoryModel } from './category.model'
 
 export class CategoryModelMapper {
   static toModel(entity: Category): CategoryModel {
@@ -10,8 +10,8 @@ export class CategoryModelMapper {
       is_active: entity.is_active,
       created_at: entity.created_at,
       description: entity.description,
-      category_id: entity.category_id.id,
-    });
+      category_id: entity.category_id.id
+    })
   }
 
   static toEntity(model: CategoryModel): Category {
@@ -20,14 +20,14 @@ export class CategoryModelMapper {
       name: model.name,
       description: model.description,
       is_active: model.is_active,
-      created_at: model.created_at,
-    });
+      created_at: model.created_at
+    })
 
-    category.validate();
+    category.validate()
 
     if (category.notification.hasErrors()) {
-      throw new EntityValidationError(category.notification.toJSON());
+      throw new EntityValidationError(category.notification.toJSON())
     }
-    return category;
+    return category
   }
 }
