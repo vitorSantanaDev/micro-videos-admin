@@ -5,8 +5,8 @@ import { ICategoryRepository } from '@core/category/domain/category.repository'
 import { CATEGORY_PROVIDERS } from 'src/nest-modules/categories-module/categories.providers'
 import { CategoriesController } from 'src/nest-modules/categories-module/categories.controller'
 import { CategoryOutputMapper } from '@core/category/application/use-cases/common/category-output'
-import { Uuid } from '@core/shared/domain/value-objects/uuid.vo'
 import { instanceToPlain } from 'class-transformer'
+import { CategoryId } from '@core/category/domain/category.aggregate'
 
 describe('CategoriesController (e2e)', () => {
   const appHelper = startApp()
@@ -75,7 +75,7 @@ describe('CategoriesController (e2e)', () => {
           const id = response.body.data.id
 
           const categoryCreated = await categoryRepository.findById(
-            new Uuid(id)
+            new CategoryId(id)
           )
 
           const presenter = CategoriesController.serialize(

@@ -22,8 +22,8 @@ import {
   ListCategoriesFixture,
   UpdateCategoryFixture
 } from '../testing/category-fixture'
-import { Uuid } from '@core/shared/domain/value-objects/uuid.vo'
-import { Category } from '@core/category/domain/category.entity'
+
+import { Category, CategoryId } from '@core/category/domain/category.aggregate'
 
 describe('CategoriesController Integration Tests', () => {
   let controller: CategoriesController
@@ -71,7 +71,7 @@ describe('CategoriesController Integration Tests', () => {
       async ({ send_data, expected }) => {
         const presenter = await controller.create(send_data)
 
-        const category_id = new Uuid(presenter.id)
+        const category_id = new CategoryId(presenter.id)
 
         const entity = await repository.findById(category_id)
 
@@ -105,7 +105,7 @@ describe('CategoriesController Integration Tests', () => {
           send_data
         )
 
-        const category_id = new Uuid(presenter.id)
+        const category_id = new CategoryId(presenter.id)
 
         const entity = await repository.findById(category_id)
 

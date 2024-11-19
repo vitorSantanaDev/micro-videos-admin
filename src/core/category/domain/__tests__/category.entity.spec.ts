@@ -1,5 +1,5 @@
 import { Uuid } from '../../../shared/domain/value-objects/uuid.vo'
-import { Category } from '../category.entity'
+import { Category, CategoryId } from '../category.aggregate'
 
 describe('Category Without Validator Unit Tests', () => {
   beforeEach(() => {
@@ -104,7 +104,7 @@ describe('Category Without Validator Unit Tests', () => {
   })
 
   describe('category_id field', () => {
-    const arrange = [{ id: null }, { id: undefined }, { id: new Uuid() }]
+    const arrange = [{ id: null }, { id: undefined }, { id: new CategoryId() }]
 
     test.each(arrange)('should be is %j', (props) => {
       const category = new Category(props as any)

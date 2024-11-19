@@ -1,5 +1,4 @@
-import { Category } from '../../../domain/category.entity'
-import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo'
+import { Category, CategoryId } from '../../../domain/category.aggregate'
 import { SortDirection } from '../../../../shared/domain/repository/search-params'
 import { InMemorySearchableRepository } from '../../../../shared/infra/database/in-memory/in-memory.repository'
 import {
@@ -8,7 +7,7 @@ import {
 } from '../../../domain/category.repository'
 
 export class CategoryInMemoryRepository
-  extends InMemorySearchableRepository<Category, Uuid>
+  extends InMemorySearchableRepository<Category, CategoryId>
   implements ICategoryRepository
 {
   sortableFields: string[] = ['name', 'created_at']

@@ -1,6 +1,6 @@
 import { CategoryModel } from './category.model'
-import { Category } from '../../../domain/category.entity'
-import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo'
+import { Category, CategoryId } from '../../../domain/category.aggregate'
+
 import { NotFoundError } from '../../../../shared/domain/errors/not-found.error'
 import { ISearchableRespository } from '../../../../shared/domain/repository/repository.interface'
 import {
@@ -12,7 +12,7 @@ import { CategoryModelMapper } from './category-model-mapper'
 import { SortDirection } from '@core/shared/domain/repository/search-params'
 
 export class CategorySequelizeRepository
-  implements ISearchableRespository<Category, Uuid>
+  implements ISearchableRespository<Category, CategoryId>
 {
   sortableFields: string[] = ['name', 'created_at']
   orderBy = {
@@ -35,7 +35,7 @@ export class CategorySequelizeRepository
     await this.categoryModel.bulkCreate(models)
   }
 
-  async findById(entity_id: Uuid): Promise<Category | null> {
+  async findById(entity_id: CategoryId): Promise<Category | null> {
     const id = entity_id.id
 
     const model = await this._get(id)
@@ -65,7 +65,7 @@ export class CategorySequelizeRepository
     })
   }
 
-  async delete(entity_id: Uuid): Promise<void> {
+  async delete(entity_id: CategoryId): Promise<void> {
     const id = entity_id.id
 
     const model = await this._get(id)
