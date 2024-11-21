@@ -15,10 +15,10 @@ describe('CastMemberModelMapper Integration Tests', () => {
   setupSequelize({ models: [CastMemberModel] })
 
   it('should throws error when cast member is invalid', () => {
+    //@ts-expect-error - This is an invalid cast member
     const model = CastMemberModel.build({
       cast_member_id: '9366b7dc-2d71-4799-b91c-c64adb205104'
     })
-
     try {
       CastMemberModelMapper.toEntity(model)
       fail('The cast member is valid, but it needs throws a LoadEntityError')
@@ -41,9 +41,7 @@ describe('CastMemberModelMapper Integration Tests', () => {
       type: CastMemberTypes.ACTOR,
       created_at
     })
-
     const entity = CastMemberModelMapper.toEntity(model)
-
     expect(entity.toJSON()).toStrictEqual(
       new CastMember({
         cast_member_id: new CastMemberId(

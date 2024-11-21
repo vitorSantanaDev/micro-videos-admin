@@ -207,7 +207,8 @@ const config: Config = {
     '-fixture.ts',
     '.input.ts',
     '.dto.ts',
-    '.d.ts'
+    '.d.ts',
+    'migrator.ts'
   ],
   coverageThreshold: {
     global: {

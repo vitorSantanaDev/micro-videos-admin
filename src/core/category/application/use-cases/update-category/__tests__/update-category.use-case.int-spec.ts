@@ -1,9 +1,9 @@
+import { CategorySequelizeRepository } from '@core/category/infra/database/sequelize/category.sequelize.repository'
 import { NotFoundError } from '../../../../../shared/domain/errors/not-found.error'
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers'
 import { Category, CategoryId } from '../../../../domain/category.aggregate'
-import { CategoryModel } from '../../../../infra/database/sequelize/category.model'
-import { CategorySequelizeRepository } from '../../../../infra/database/sequelize/category.sequelize.repository'
 import { UpdateCategoryUseCase } from '../update-category.use-case'
+import { CategoryModel } from '@core/category/infra/database/sequelize/category.model'
 
 describe('UpdateCategoryUseCase Integration Tests', () => {
   let useCase: UpdateCategoryUseCase
@@ -17,16 +17,14 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
   })
 
   it('should throws error when entity not found', async () => {
-    const uuid = new CategoryId()
-
+    const categoryId = new CategoryId()
     await expect(() =>
-      useCase.execute({ id: uuid.id, name: 'fake' })
-    ).rejects.toThrow(new NotFoundError(uuid.id, Category))
+      useCase.execute({ id: categoryId.id, name: 'fake' })
+    ).rejects.toThrow(new NotFoundError(categoryId.id, Category))
   })
 
   it('should update a category', async () => {
     const entity = Category.fake().aCategory().build()
-
     repository.insert(entity)
 
     let output = await useCase.execute({
@@ -57,7 +55,6 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
         created_at: Date
       }
     }
-
     const arrange: Arrange[] = [
       {
         input: {
@@ -161,15 +158,15 @@ describe('UpdateCategoryUseCase Integration Tests', () => {
         name: i.expected.name,
         description: i.expected.description,
         is_active: i.expected.is_active,
-        created_at: entityUpdated.created_at
+        created_at: entityUpdated!.created_at
       })
 
-      expect(entityUpdated.toJSON()).toStrictEqual({
+      expect(entityUpdated!.toJSON()).toStrictEqual({
         category_id: entity.category_id,
         name: i.expected.name,
         description: i.expected.description,
         is_active: i.expected.is_active,
-        created_at: entityUpdated.created_at
+        created_at: entityUpdated!.created_at
       })
     }
   })

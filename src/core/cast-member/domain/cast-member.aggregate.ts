@@ -1,8 +1,8 @@
-import { Uuid } from '@core/shared/domain/value-objects/uuid.vo'
-import { CastMemberType } from './cast-member-type.vo'
-import { AggregateRoot } from '@core/shared/domain/aggregate-root'
-import { CastMemberFakeBuilder } from './cast-member-fake.builder'
+import { Uuid } from '../../shared/domain/value-objects/uuid.vo'
 import CastMemberValidatorFactory from './cast-member.validator'
+import { CastMemberType } from './cast-member-type.vo'
+import { CastMemberFakeBuilder } from './cast-member-fake.builder'
+import { AggregateRoot } from '../../shared/domain/aggregate-root'
 
 export type CastMemberConstructorProps = {
   cast_member_id?: CastMemberId
@@ -11,12 +11,12 @@ export type CastMemberConstructorProps = {
   created_at?: Date
 }
 
-export class CastMemberId extends Uuid {}
-
 export type CastMemberCreateCommand = {
   name: string
   type: CastMemberType
 }
+
+export class CastMemberId extends Uuid {}
 
 export class CastMember extends AggregateRoot {
   cast_member_id: CastMemberId
@@ -34,9 +34,7 @@ export class CastMember extends AggregateRoot {
 
   static create(props: CastMemberCreateCommand) {
     const castMember = new CastMember(props)
-
     castMember.validate(['name'])
-
     return castMember
   }
 
@@ -51,8 +49,7 @@ export class CastMember extends AggregateRoot {
 
   validate(fields?: string[]) {
     const validator = CastMemberValidatorFactory.create()
-
-    return validator.validate(this.notification, this, fields)
+    return validator.validate(this.notification, this, fields || [])
   }
 
   static fake() {
