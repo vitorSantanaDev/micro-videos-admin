@@ -1,8 +1,7 @@
+import { CategoryInMemoryRepository } from '@core/category/infra/database/in-memory/category-in-memory.repository'
 import { NotFoundError } from '../../../../../shared/domain/errors/not-found.error'
 import { InvalidUuidError } from '../../../../../shared/domain/value-objects/uuid.vo'
 import { Category, CategoryId } from '../../../../domain/category.aggregate'
-
-import { CategoryInMemoryRepository } from '../../../../infra/database/in-memory/category-in-memory.repository'
 import { UpdateCategoryUseCase } from '../update-category.use-case'
 
 describe('UpdateCategoryUseCase Unit Tests', () => {
@@ -19,11 +18,11 @@ describe('UpdateCategoryUseCase Unit Tests', () => {
       useCase.execute({ id: 'fake id', name: 'fake' })
     ).rejects.toThrow(new InvalidUuidError())
 
-    const uuid = new CategoryId()
+    const categoryId = new CategoryId()
 
     await expect(() =>
-      useCase.execute({ id: uuid.id, name: 'fake' })
-    ).rejects.toThrow(new NotFoundError(uuid.id, Category))
+      useCase.execute({ id: categoryId.id, name: 'fake' })
+    ).rejects.toThrow(new NotFoundError(categoryId.id, Category))
   })
 
   it('should throw an error when aggregate is not valid', async () => {
@@ -34,7 +33,7 @@ describe('UpdateCategoryUseCase Unit Tests', () => {
         id: aggregate.category_id.id,
         name: 't'.repeat(256)
       })
-    ).rejects.toThrow('Entity Validation Error')
+    ).rejects.toThrowError('Entity Validation Error')
   })
 
   it('should update a category', async () => {

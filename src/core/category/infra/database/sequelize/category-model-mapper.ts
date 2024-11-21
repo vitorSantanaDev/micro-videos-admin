@@ -1,15 +1,15 @@
-import { EntityValidationError } from '../../../../shared/domain/validators/validation.error'
+import { LoadEntityError } from '../../../../shared/domain/validators/validation.error'
 import { Category, CategoryId } from '../../../domain/category.aggregate'
 import { CategoryModel } from './category.model'
 
 export class CategoryModelMapper {
   static toModel(entity: Category): CategoryModel {
     return CategoryModel.build({
+      category_id: entity.category_id.id,
       name: entity.name,
-      is_active: entity.is_active,
-      created_at: entity.created_at,
       description: entity.description,
-      category_id: entity.category_id.id
+      is_active: entity.is_active,
+      created_at: entity.created_at
     })
   }
 
@@ -23,9 +23,8 @@ export class CategoryModelMapper {
     })
 
     category.validate()
-
     if (category.notification.hasErrors()) {
-      throw new EntityValidationError(category.notification.toJSON())
+      throw new LoadEntityError(category.notification.toJSON())
     }
     return category
   }
