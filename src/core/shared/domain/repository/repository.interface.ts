@@ -11,6 +11,10 @@ export interface IRepository<E extends Entity, EntityId extends ValueObject> {
   findById(entity_id: EntityId): Promise<E | null>
   findAll(): Promise<E[]>
   getEntity(): new (...args: any[]) => E
+  existsById(ids: EntityId[]): Promise<{
+    exists: EntityId[]
+    not_exists: EntityId[]
+  }>
 }
 
 export interface ISearchableRespository<
